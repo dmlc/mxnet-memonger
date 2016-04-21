@@ -103,7 +103,6 @@ def make_mirror_plan(sym, threshold, plan_info=None, **kwargs):
     if plan_info is not None:
         plan_info['max_size'] = max_size
         plan_info['save_size'] = save_size
-        print('max_size=%d, save_size=%d' % (max_size>>20, save_size>>20))
     return sym
 
 
@@ -163,4 +162,6 @@ def search_plan(sym, ntrial=6, **kwargs):
             threshold += step
 
     history.sort(key = lambda x: x[0])
-    return history[0][-1]
+    cost, threshold, sym = history[0]
+    print('Find best plan with threshold=%d, cost=%d MB' % (threshold, cost))
+    return sym
