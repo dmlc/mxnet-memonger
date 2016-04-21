@@ -13,8 +13,9 @@ The algorithm is described in the paper
 This code is based on [MXNet](https://github.com/dmlc/mxnet), a lightweight, flexible and efficient framework for deep learning.
 
 - Configure your network as you normally will do using symbolic API
-- Give hint to the allocator about the possible places that can be critical points
+- Give hint to the allocator about the possible places that we need to bookkeep computations.
   - Set attribute ```mirror_stage='True'```, see [example_resnet.py](example_resnet.py#L25)
+  - The memonger will try to find possible dividing points on the nodes that are annotated as mirror_stage.
 - Call ```memonger.search_plan``` to get an symbolic graph with memory plan.
 
 ```python
