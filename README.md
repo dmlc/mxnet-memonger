@@ -4,9 +4,9 @@ This project contains a 150 lines of python script to give sublinear memory plan
 This allows you to trade computation for memory and get sublinear memory cost,
 so you can train bigger/deeper nets with limited resources.
 
-The algorithm is described in the paper
+## Reference Paper
 
-[Training Deep Nets with Sublinear Memory Cost](xx).
+[Training Deep Nets with Sublinear Memory Cost](xx) Arxiv
 
 ## How to Use
 
