@@ -6,7 +6,7 @@ so you can train bigger/deeper nets with limited resources.
 
 ## Reference Paper
 
-[Training Deep Nets with Sublinear Memory Cost](xx) Arxiv
+[Training Deep Nets with Sublinear Memory Cost](https://arxiv.org/abs/1604.06174) Arxiv 1604.06174
 
 ## How to Use
 
