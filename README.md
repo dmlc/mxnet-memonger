@@ -29,7 +29,7 @@ net = my_symbol()
 net_planned = memonger.search_plan(net)
 
 # use as normal
-model = mx.FeedForward(net, ...)
+model = mx.FeedForward(net_planned, ...)
 model.fit(...)
 ```
 
