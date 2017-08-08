@@ -106,19 +106,20 @@ def make_mirror_plan(sym, threshold, plan_info=None, **kwargs):
     return sym
 
 
-def get_cost(sym, **kwargs):
+def get_cost(sym, type_dict=None, **kwargs):
     """Get the cost of the current symbolic plan by running bind on CPU.
 
     sym : Symbolic Variable
 
     """
-    texec = sym.simple_bind(ctx=mx.cpu(),
+    texec = sym.simple_bind(ctx=mx.gpu(),
                             grad_req='write',
+                            type_dict=type_dict,
                             **kwargs)
     return int(texec.debug_str().split('\n')[-3].split()[1])
 
 
-def search_plan(sym, ntrial=6, **kwargs):
+def search_plan(sym, ntrial=6, type_dict=None, **kwargs):
     """Quickly heurestic search over possible plans to find good memory plan.
 
     Parameters
@@ -138,7 +139,7 @@ def search_plan(sym, ntrial=6, **kwargs):
     for k in range(nbegin):
         info = {}
         sym = make_mirror_plan(sym, threshold=threshold, plan_info=info, **kwargs)
-        cost = get_cost(sym, **kwargs)
+        cost = get_cost(sym, type_dict, **kwargs)
         save_size = info['save_size'] >> 20
         local_size = info['max_size'] >> 20
         guess = int(math.sqrt(save_size * local_size / 2))
@@ -156,7 +157,7 @@ def search_plan(sym, ntrial=6, **kwargs):
     if step > 0:
         for k in range(ntrial):
             sym = make_mirror_plan(sym, threshold=threshold, plan_info=info, **kwargs)
-            cost = get_cost(sym, **kwargs)
+            cost = get_cost(sym, type_dict, **kwargs)
             print ("Search threshold=%d MB, cost=%d MB" % (threshold, cost))
             history.append((cost, threshold, sym))
             threshold += step
